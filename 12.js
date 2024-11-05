@@ -79,7 +79,11 @@ function() {
 
       // solution 
 
-	return movieLists.map(movie=> movie.videos.map(video => ({id:video.id, title: video.title, boxart:video.boxarts}))).concatAll().map(box=>({id: box.id, title: box.title, boxart: box.boxart.filter(size =>size.width === 150 && size.height === 200).map(u=>u.url).pop()}) )
+      const flattenArray = movieLists.map(movie=> movie.videos.map(video => ({id:video.id, title: video.title, boxart:video.boxarts}))).concatAll()
+
+      const filteredArray = flattenArray.map(box=>({id: box.id, title: box.title, boxart: box.boxart.filter(size =>size.width === 150 && size.height === 200).map(u=>u.url).shift()}))
+
+	return filteredArray
       
 }
 		
